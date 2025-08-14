@@ -3,6 +3,18 @@
 
 A modern, responsive financial dashboard built with Next.js 15, React 19, TypeScript, and Tailwind CSS.
 
+
+-----
+<a href="https://nextjs-financial-dashboard-6r8v.vercel.app/" target="_blank">
+  <img src="https://img.shields.io/badge/Live%20Demo-Click%20Here-blue" alt="Live Demo" />
+</a>
+
+
+-----
+
+
+![Final UI](image.png)
+
 ## Features
 
 - 🎨 **Modern UI/UX** - Clean, professional design with dark/light mode support
