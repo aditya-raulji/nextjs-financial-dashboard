@@ -3,6 +3,7 @@
 import { FileText, Gift, AlertTriangle, TrendingDown, TrendingUp } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 
 interface TransactionCardProps {
   type: 'purchases' | 'redemptions' | 'rejectedTransactions' | 'sipRejections' | 'newSip'
@@ -82,8 +83,4 @@ export default function TransactionCard({ type, count, amount }: TransactionCard
       </div>
     </Card>
   )
-}
-
-function cn(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
 }

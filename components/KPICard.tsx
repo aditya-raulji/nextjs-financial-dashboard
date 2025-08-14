@@ -3,6 +3,7 @@
 import { TrendingUp, TrendingDown } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 
 interface KPICardProps {
   title: string
@@ -52,8 +53,4 @@ export default function KPICard({ title, value, momChange, isPositive }: KPICard
       </div>
     </Card>
   )
-}
-
-function cn(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
 }
