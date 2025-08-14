@@ -77,18 +77,22 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500"></div>
+      <div className="min-h-screen bg-gray-50 dark:bg-dark-900 flex items-center justify-center transition-colors duration-200">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 dark:border-primary-400"></div>
       </div>
     )
   }
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-dark-900 flex items-center justify-center transition-colors duration-200">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Error Loading Dashboard</h2>
-          <p className="text-gray-600">Please try refreshing the page.</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2 transition-colors duration-200">
+            Error Loading Dashboard
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 transition-colors duration-200">
+            Please try refreshing the page.
+          </p>
         </div>
       </div>
     )
@@ -96,69 +100,69 @@ export default function Dashboard() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-gray-50 dark:bg-dark-900 transition-colors duration-200">
         <Header />
         <Navigation />
         
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <KPICard
-            title="Current AUM"
-            value={data.aum.current}
-            momChange={data.aum.momChange}
-            isPositive={data.aum.isPositive}
-          />
-          <KPICard
-            title="Current SIP"
-            value={data.sip.current}
-            momChange={data.sip.momChange}
-            isPositive={data.sip.isPositive}
-          />
-        </div>
+        <main className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6">
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+            <KPICard
+              title="Current AUM 12.19 Cr"
+              value=""
+              momChange={data.aum.momChange}
+              isPositive={data.aum.isPositive}
+            />
+            <KPICard
+              title="Current SIP 1.39 Lakh"
+              value=""
+              momChange={data.sip.momChange}
+              isPositive={data.sip.isPositive}
+            />
+          </div>
 
-        {/* Time Filter */}
-        <div className="mb-6">
-          <TimeFilter onFilterChange={handleTimeFilterChange} />
-        </div>
+          {/* Time Filter */}
+          <div className="mb-4 sm:mb-6">
+            <TimeFilter onFilterChange={handleTimeFilterChange} />
+          </div>
 
-        {/* Transaction Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          <TransactionCard
-            type="purchases"
-            count={data.transactions.purchases.count}
-            amount={data.transactions.purchases.amount}
-          />
-          <TransactionCard
-            type="redemptions"
-            count={data.transactions.redemptions.count}
-            amount={data.transactions.redemptions.amount}
-          />
-          <TransactionCard
-            type="rejectedTransactions"
-            count={data.transactions.rejectedTransactions.count}
-            amount={data.transactions.rejectedTransactions.amount}
-          />
-          <TransactionCard
-            type="sipRejections"
-            count={data.transactions.sipRejections.count}
-            amount={data.transactions.sipRejections.amount}
-          />
-          <TransactionCard
-            type="newSip"
-            count={data.transactions.newSip.count}
-            amount={data.transactions.newSip.amount}
-          />
-        </div>
+          {/* Transaction Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <TransactionCard
+              type="purchases"
+              count={data.transactions.purchases.count}
+              amount={data.transactions.purchases.amount}
+            />
+            <TransactionCard
+              type="redemptions"
+              count={data.transactions.redemptions.count}
+              amount={data.transactions.redemptions.amount}
+            />
+            <TransactionCard
+              type="rejectedTransactions"
+              count={data.transactions.rejectedTransactions.count}
+              amount={data.transactions.rejectedTransactions.amount}
+            />
+            <TransactionCard
+              type="sipRejections"
+              count={data.transactions.sipRejections.count}
+              amount={data.transactions.sipRejections.amount}
+            />
+            <TransactionCard
+              type="newSip"
+              count={data.transactions.newSip.count}
+              amount={data.transactions.newSip.amount}
+            />
+          </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <ClientsChart data={data.clients} />
-          <SIPBusinessChart data={data.sipBusiness} />
-          <MonthlyMISChart data={data.monthlyMis} />
-        </div>
-      </main>
-    </div>
+          {/* Charts */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+            <ClientsChart data={data.clients} />
+            <SIPBusinessChart data={data.sipBusiness} />
+            <MonthlyMISChart data={data.monthlyMis} />
+          </div>
+        </main>
+      </div>
     </ErrorBoundary>
   )
 }

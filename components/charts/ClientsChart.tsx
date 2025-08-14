@@ -2,7 +2,6 @@
 
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { Download } from 'lucide-react'
 
 interface ClientsData {
   active: number
@@ -19,63 +18,64 @@ export default function ClientsChart({ data }: ClientsChartProps) {
   const totalClients = data.active + data.online + data.new + data.inactive
 
   return (
-    <Card>
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900">CLIENTS</h3>
-          <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 mr-2" />
-            Download Report
-          </Button>
+    <Card className="relative flex flex-col items-center hover:shadow-lg dark:hover:shadow-dark-900/40 transition-all duration-200">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row items-center justify-between w-full mb-4 gap-2">
+        <h3 className="font-bold text-gray-900 dark:text-gray-100 text-sm sm:text-base transition-colors duration-200">
+          CLIENTS
+        </h3>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="text-primary-500 dark:text-primary-400 border-primary-300 dark:border-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 text-xs sm:text-sm"
+        >
+          Download Report
+        </Button>
+      </div>
+
+      {/* Bubble Container - Responsive sizing */}
+      <div className="relative w-48 h-48 sm:w-72 sm:h-72">
+        {/* Main Red Circle (behind others) - Inactive Clients */}
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 sm:w-36 sm:h-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500 dark:bg-red-600 shadow-lg dark:shadow-red-900/30 flex items-center justify-center text-white text-lg sm:text-2xl font-bold z-0 transition-all duration-200">
+          {data.inactive}
         </div>
 
-        {/* Bubble Chart Visualization */}
-        <div className="relative h-64 flex items-center justify-center">
-          {/* Main Active Clients Circle */}
-          <div className="absolute w-32 h-32 bg-primary-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
-            {data.active}
-          </div>
-          
-          {/* Online Clients Circle */}
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-orange-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
-            {data.online}
-          </div>
-          
-          {/* Inactive Clients Circle */}
-          <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-red-400 rounded-full flex items-center justify-center text-white font-bold text-xs">
-            {data.inactive}
-          </div>
-          
-          {/* New Clients Circle */}
-          <div className="absolute bottom-8 left-8 w-12 h-12 bg-green-400 rounded-full flex items-center justify-center text-white font-bold text-xs">
-            {data.new}
-          </div>
+        {/* Yellow Circle (Top) - Online Clients */}
+        <div className="absolute top-6 sm:top-8 left-1/2 -translate-x-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-yellow-400 dark:bg-yellow-500 shadow-lg dark:shadow-yellow-900/30 flex items-center justify-center text-white font-bold z-10 text-sm sm:text-base transition-all duration-200">
+          {data.online}
         </div>
 
-        {/* Legend */}
-        <div className="flex flex-wrap gap-4 justify-center">
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-            <span className="text-sm text-gray-600">Online</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-            <span className="text-sm text-gray-600">New</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
-            <span className="text-sm text-gray-600">Active</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-            <span className="text-sm text-gray-600">InActive</span>
-          </div>
+        {/* Green Circle (Bottom) - New Clients */}
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-success-500 dark:bg-success-600 shadow-lg dark:shadow-success-900/30 flex items-center justify-center text-white font-bold z-10 text-xs sm:text-sm transition-all duration-200">
+          {data.new}
         </div>
 
-        <div className="text-center">
-          <p className="text-sm text-gray-500">Total Clients: {totalClients.toLocaleString()}</p>
+        {/* Orange Circle (Left) - Active Clients */}
+        <div className="absolute top-1/2 left-3 sm:left-4 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-300 dark:bg-red-400 shadow-lg dark:shadow-red-900/30 flex items-center justify-center text-white font-bold z-10 text-sm sm:text-base transition-all duration-200">
+          {data.active}
         </div>
       </div>
+
+      {/* Legends - Responsive layout */}
+      <div className="flex flex-col sm:flex-row justify-center mt-4 sm:mt-6 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400 transition-colors duration-200">
+        <div className="flex items-center space-x-1">
+          <span className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-400 dark:bg-yellow-500 rounded-full"></span>
+          <span>Online</span>
+        </div>
+        <div className="flex items-center space-x-1">
+          <span className="w-2 h-2 sm:w-3 sm:h-3 bg-success-500 dark:bg-success-600 rounded-full"></span>
+          <span>New Active</span>
+        </div>
+        <div className="flex items-center space-x-1">
+          <span className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 dark:bg-red-600 rounded-full"></span>
+          <span>Inactive</span>
+        </div>
+      </div>
+
+      {/* Total Clients */}
+      <p className="mt-2 text-gray-500 dark:text-gray-400 text-xs sm:text-sm transition-colors duration-200">
+        Total Clients: {totalClients.toLocaleString()}
+      </p>
     </Card>
   )
 }
